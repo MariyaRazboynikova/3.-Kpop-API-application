@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:kpop_application/presentaion/widgets/button_widgets.dart';
+import 'package:kpop_application/features/presentaion/widgets/button_widgets.dart';
 
 class IntroPage extends StatelessWidget {
   const IntroPage({super.key});

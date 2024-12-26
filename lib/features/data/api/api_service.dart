@@ -1,4 +1,4 @@
-import 'package:kpop_application/data/models/groups_model.dart';
+import 'package:kpop_application/features/data/models/groups_model.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {

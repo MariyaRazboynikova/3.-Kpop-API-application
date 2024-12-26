@@ -1,4 +1,4 @@
-import 'package:kpop_application/domain/entity/members_entity.dart';
+import 'package:kpop_application/features/domain/entity/members_entity.dart';
 
 class GroupEntity {
   final String id;
