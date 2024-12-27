@@ -6,7 +6,6 @@ import 'package:kpop_application/core/themes/themes_provider.dart';
 import 'package:kpop_application/features/data/models/group_model.dart';
 import 'package:kpop_application/features/data/models/idol_member.dart';
 import 'package:kpop_application/features/presentaion/bloc/groups_bloc.dart';
-import 'package:kpop_application/features/presentaion/pages/members_page.dart';
 
 class GroupsPage extends StatefulWidget {
   const GroupsPage({super.key});
@@ -36,16 +35,16 @@ class _GroupsPageState extends State<GroupsPage> {
           child: Text(
             'Female k-pop groups',
             style: GoogleFonts.dmSerifDisplay(
-              color: Theme.of(context).colorScheme.primary,
-              fontSize: 30,
+              color: Theme.of(context).colorScheme.tertiary,
+              fontSize: 25,
               fontWeight: FontWeight.bold,
             ),
           ),
         ),
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        // backgroundColor: Theme.of(context).colorScheme.primary,
         actions: [
           Switch(
-            activeColor: Theme.of(context).colorScheme.primary,
+            activeColor: Theme.of(context).colorScheme.tertiary,
             inactiveThumbColor: Theme.of(context).colorScheme.primary,
             inactiveTrackColor: Theme.of(context).colorScheme.secondary,
             thumbIcon: WidgetStateProperty.resolveWith<Icon?>((
@@ -62,6 +61,20 @@ class _GroupsPageState extends State<GroupsPage> {
             },
           ),
         ],
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              '/intro_page',
+              (route) => false,
+            );
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: Theme.of(context).colorScheme.tertiary,
+            size: 30,
+          ),
+        ),
       ),
 
       //body

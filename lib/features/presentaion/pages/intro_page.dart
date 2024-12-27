@@ -19,13 +19,17 @@ class IntroPage extends StatelessWidget {
               "Women's groups",
               style: GoogleFonts.kaiseiTokumin(
                 fontWeight: FontWeight.bold,
-                fontSize: 25,
+                fontSize: 35,
                 color: Theme.of(context).colorScheme.primary,
               ),
             ),
           ),
-
-          Image.asset('lib/core/assets/love.png'),
+          Icon(
+            Icons.music_note_outlined,
+            color: Theme.of(context).colorScheme.secondary,
+            size: 100,
+          ),
+          // Image.asset('lib/core/assets/love.png'),
           ButtonForInitialPage(
             text: "Start",
             onTap: () => Navigator.pushNamed(context, '/groups_page'),

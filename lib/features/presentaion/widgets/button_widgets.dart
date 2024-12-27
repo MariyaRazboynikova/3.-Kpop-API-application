@@ -25,7 +25,7 @@ class ButtonForInitialPage extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.surface,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
               ),
             ),
@@ -34,7 +34,7 @@ class ButtonForInitialPage extends StatelessWidget {
             //icon
             Icon(
               Icons.arrow_forward,
-              color: Theme.of(context).colorScheme.surface,
+              color: Theme.of(context).colorScheme.secondary,
             ),
           ],
         ),

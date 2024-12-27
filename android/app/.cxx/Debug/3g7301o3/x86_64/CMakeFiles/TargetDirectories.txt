@@ -1,0 +1,2 @@
+C:/flutter/1. Project/3.-Kpop-API-application/android/app/.cxx/Debug/3g7301o3/x86_64/CMakeFiles/edit_cache.dir
+C:/flutter/1. Project/3.-Kpop-API-application/android/app/.cxx/Debug/3g7301o3/x86_64/CMakeFiles/rebuild_cache.dir

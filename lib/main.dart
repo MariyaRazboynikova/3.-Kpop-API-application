@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kpop_application/core/themes/themes_provider.dart';
+import 'package:kpop_application/features/data/api/api_service.dart';
+import 'package:kpop_application/features/data/repository/group_repository_impl.dart';
+import 'package:kpop_application/features/domain/repository/groups_repository.dart';
+import 'package:kpop_application/features/presentaion/bloc/groups_bloc.dart';
 import 'package:kpop_application/features/presentaion/pages/groups_page.dart';
 import 'package:kpop_application/features/presentaion/pages/idols_page.dart';
 import 'package:kpop_application/features/presentaion/pages/intro_page.dart';
@@ -11,6 +16,13 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => ThemesProvider()),
+        Provider<ApiService>(create: (context) => ApiService()),
+        Provider<GroupsRepository>(
+          create: (context) => GroupRepositoryImpl(context.read<ApiService>()),
+        ),
+        BlocProvider<GroupsBloc>(
+          create: (context) => GroupsBloc(context.read<GroupsRepository>()),
+        ),
       ],
       child: const MainApp(),
     ),
@@ -25,7 +37,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       theme: Provider.of<ThemesProvider>(context).themeData,
       debugShowCheckedModeBanner: false,
-      home: const Scaffold(body: IntroPage()),
+      home: const IntroPage(),
       routes: {
         '/intro_page': (context) => const IntroPage(),
         '/groups_page': (context) => const GroupsPage(),
