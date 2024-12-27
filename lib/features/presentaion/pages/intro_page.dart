@@ -16,7 +16,7 @@ class IntroPage extends StatelessWidget {
         children: [
           Center(
             child: Text(
-              'REST Countries BLoC App',
+              "Women's groups",
               style: GoogleFonts.kaiseiTokumin(
                 fontWeight: FontWeight.bold,
                 fontSize: 25,
@@ -24,12 +24,11 @@ class IntroPage extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 10),
-          // Lottie.asset('lib/core/assets/countries.json'),
-          const SizedBox(height: 40),
+
+          Image.asset('lib/core/assets/love.png'),
           ButtonForInitialPage(
-            text: 'Start',
-            onTap: () => Navigator.pushNamed(context, '/home_pages'),
+            text: "Start",
+            onTap: () => Navigator.pushNamed(context, '/groups_page'),
           ),
         ],
       ),

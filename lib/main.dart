@@ -29,8 +29,8 @@ class MainApp extends StatelessWidget {
       routes: {
         '/intro_page': (context) => const IntroPage(),
         '/groups_page': (context) => const GroupsPage(),
-        '/members_pages.dart': (context) => const MembersPage(),
-        '/idols_page': (context) => const IdolsPage(),
+        '/members_pages.dart': (context) => MembersPage(group: null),
+        '/idols_page': (context) => IdolsPage(),
       },
     );
   }
