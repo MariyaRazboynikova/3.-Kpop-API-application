@@ -1,15 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:kpop_application/features/data/models/idol_member.dart';
 
+import 'package:flutter/material.dart';
+import 'package:kpop_application/features/data/models/group_model.dart';
+import 'package:kpop_application/features/data/models/idol_member.dart';
+import 'package:kpop_application/features/data/models/member_model.dart';
+
 class IdolsPage extends StatelessWidget {
   final String memberId; // ID участника
   final List<Idol> idols; // Список идолов
-  const IdolsPage({super.key, required this.memberId, required this.idols});
+  final List<Group> groups; // Список групп
+
+  const IdolsPage({
+    super.key,
+    required this.memberId,
+    required this.idols,
+    required this.groups, // Добавляем список групп
+  });
 
   @override
   Widget build(BuildContext context) {
     // Получаем данные о члене по его ID
     Idol member = getMemberData(memberId, idols);
+
+    // Получаем первую группу участника (если есть)
+    Group memberGroup = groups.firstWhere(
+      (group) => member.groups.isNotEmpty && group.id == member.groups[0],
+      orElse:
+          () => throw Exception('Группа не найдена для участника ${member.id}'),
+    );
 
     return Scaffold(
       appBar: AppBar(title: Text(member.name)),
@@ -21,7 +40,6 @@ class IdolsPage extends StatelessWidget {
           children: [
             if (member.thumbUrl.isNotEmpty)
               Image.network(member.thumbUrl, height: 150, fit: BoxFit.cover),
-
             Text(
               'Имя: ${member.name}',
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -49,12 +67,23 @@ class IdolsPage extends StatelessWidget {
                 'Вес: ${member.weight} кг',
                 style: const TextStyle(fontSize: 16),
               ),
-            // Отображение групп, в которых участвует участник
-            const Text(
-              'Группы:',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            ...member.groups.map((group) => Text('- $group')).toList(),
+            if (memberGroup != null) ...[
+              Text(
+                'Группа: ${memberGroup.name}',
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                'Агентство: ${memberGroup.agencyName}',
+                style: const TextStyle(fontSize: 16),
+              ),
+              Text(
+                'Позиция в группе: ${getMemberRole(member.id, memberGroup.members)}', // Используем id вместо idolId
+                style: const TextStyle(fontSize: 16),
+              ),
+            ],
           ],
         ),
       ),
@@ -66,5 +95,19 @@ class IdolsPage extends StatelessWidget {
       (idol) => idol.id == memberId,
       orElse: () => throw Exception('Idol with id $memberId not found'),
     );
+  }
+
+  String getMemberRole(String idolId, List<Member> members) {
+    Member? member = members.firstWhere(
+      (m) => m.idolId == idolId,
+      orElse:
+          () => Member(
+            current: false,
+            idolId: idolId,
+            roles: null, // Указываем null или значение по умолчанию
+          ),
+    );
+    return member.roles ??
+        "Роль не указана"; // Возвращаем роль или сообщение о ее отсутствии
   }
 }

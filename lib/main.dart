@@ -45,13 +45,21 @@ class MainApp extends StatelessWidget {
           final args =
               ModalRoute.of(context)!.settings.arguments
                   as Map<String, dynamic>;
-          return MembersPage(group: args['group'], idols: args['idols']);
+          return MembersPage(
+            group: args['group'],
+            idols: args['idols'],
+            groups: args['groups'], // Передаем группы
+          );
         },
         '/idols_page': (context) {
           final args =
               ModalRoute.of(context)!.settings.arguments
                   as Map<String, dynamic>;
-          return IdolsPage(memberId: args['memberId'], idols: args['idols']);
+          return IdolsPage(
+            memberId: args['memberId'],
+            idols: args['idols'],
+            groups: args['groups'],
+          );
         },
       },
     );

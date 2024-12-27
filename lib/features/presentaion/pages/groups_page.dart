@@ -138,11 +138,7 @@ class _GroupsPageState extends State<GroupsPage> {
                   Navigator.pushNamed(
                     context,
                     '/members_page',
-                    arguments: {
-                      'group': group,
-                      'idols':
-                          idols, // Убедитесь, что idols доступен в этом контексте
-                    },
+                    arguments: {'group': group, 'idols': idols},
                   );
                 },
               );
