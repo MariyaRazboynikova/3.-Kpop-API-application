@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kpop_application/core/themes/themes.dart';
 import 'package:kpop_application/core/themes/themes_provider.dart';
 import 'package:kpop_application/features/data/models/group_model.dart';
+import 'package:kpop_application/features/data/models/idol_member.dart';
 import 'package:kpop_application/features/presentaion/bloc/groups_bloc.dart';
 import 'package:kpop_application/features/presentaion/pages/members_page.dart';
 
@@ -69,7 +70,11 @@ class _GroupsPageState extends State<GroupsPage> {
           if (state is GroupsLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is GroupsLoaded) {
-            return getGroups(state.groups.groups, searchQuery);
+            return getGroups(
+              state.groups.groups,
+              searchQuery,
+              state.groups.idols,
+            );
           } else if (state is GroupsError) {
             return const Center(child: Text('Ошибка загрузки групп'));
           }
@@ -79,7 +84,7 @@ class _GroupsPageState extends State<GroupsPage> {
     );
   }
 
-  Widget getGroups(List<Group> groups, String searchQuery) {
+  Widget getGroups(List<Group> groups, String searchQuery, List<Idol> idols) {
     // Сортировка групп по имени
     List<Group> sortedGroups = List.from(groups);
     sortedGroups.sort((a, b) => a.name.compareTo(b.name));
@@ -117,13 +122,14 @@ class _GroupsPageState extends State<GroupsPage> {
                         ? Image.network(group.thumbUrl!)
                         : null,
                 onTap: () {
-                  // Переход к странице участников группы
-                  Navigator.push(
+                  Navigator.pushNamed(
                     context,
-                    MaterialPageRoute(
-                      builder:
-                          (context) => MembersPage(group: group, idols: idols),
-                    ),
+                    '/members_page',
+                    arguments: {
+                      'group': group,
+                      'idols':
+                          idols, // Убедитесь, что idols доступен в этом контексте
+                    },
                   );
                 },
               );

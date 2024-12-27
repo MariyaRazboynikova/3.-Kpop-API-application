@@ -29,8 +29,18 @@ class MainApp extends StatelessWidget {
       routes: {
         '/intro_page': (context) => const IntroPage(),
         '/groups_page': (context) => const GroupsPage(),
-        '/members_pages.dart': (context) => MembersPage(group: null),
-        '/idols_page': (context) => IdolsPage(),
+        '/members_page': (context) {
+          final args =
+              ModalRoute.of(context)!.settings.arguments
+                  as Map<String, dynamic>;
+          return MembersPage(group: args['group'], idols: args['idols']);
+        },
+        '/idols_page': (context) {
+          final args =
+              ModalRoute.of(context)!.settings.arguments
+                  as Map<String, dynamic>;
+          return IdolsPage(memberId: args['memberId'], idols: args['idols']);
+        },
       },
     );
   }

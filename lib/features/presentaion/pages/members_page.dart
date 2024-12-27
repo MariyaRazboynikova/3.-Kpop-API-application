@@ -18,11 +18,11 @@ class MembersPage extends StatelessWidget {
         itemCount: group.members.length,
         itemBuilder: (context, index) {
           var member = group.members[index];
-          // Get the idol's name using the idolId
+          // Получаем имя айдола по его idolId
           String idolName = getIdolName(member.idolId, idols);
 
           return ListTile(
-            title: Text(idolName), // Displaying the idol's name
+            title: Text(idolName), // Отображаем имя айдола
             subtitle: Text(member.roles ?? "Роль не указана"),
             onTap: () {
               Navigator.push(
@@ -41,11 +41,12 @@ class MembersPage extends StatelessWidget {
   }
 
   String getIdolName(String idolId, List<Idol> idols) {
-    // Find and return the idol's name based on idolId
-    Idol idol = idols.firstWhere(
-      (idol) => idol.id == idolId,
-      orElse: () => throw Exception('Idol with id $idolId not found'),
-    );
-    return idol.name; // Return the name of the found idol
+    // Находим айдола по его id и возвращаем его имя
+    return idols
+        .firstWhere(
+          (idol) => idol.id == idolId,
+          orElse: () => throw Exception('Айдол с id $idolId не найден'),
+        )
+        .name;
   }
 }
