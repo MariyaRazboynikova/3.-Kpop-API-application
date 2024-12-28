@@ -29,7 +29,7 @@ class IntroPage extends StatelessWidget {
             color: Theme.of(context).colorScheme.tertiary,
             size: 100,
           ),
-          // Image.asset('lib/core/assets/love.png'),
+
           ButtonForInitialPage(
             text: "Start",
             onTap: () => Navigator.pushNamed(context, '/groups_page'),

@@ -41,7 +41,6 @@ class _GroupsPageState extends State<GroupsPage> {
             ),
           ),
         ),
-        // backgroundColor: Theme.of(context).colorScheme.primary,
         actions: [
           Switch(
             activeColor: Theme.of(context).colorScheme.tertiary,
@@ -108,7 +107,7 @@ class _GroupsPageState extends State<GroupsPage> {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: TextField(
             onChanged: (value) {
-              // Обновляем текст поиска
+              // обновление текста поиска
               setState(() {
                 searchQuery = value.toLowerCase();
               });

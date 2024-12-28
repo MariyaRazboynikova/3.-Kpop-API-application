@@ -4,15 +4,15 @@ import 'package:kpop_application/features/data/models/group_model.dart';
 import 'package:kpop_application/features/data/models/idol_member.dart';
 
 class IdolsPage extends StatelessWidget {
-  final String memberId; // ID участника
-  final List<Idol> idols; // Список идолов
-  final Group group; // Группа, к которой принадлежит участник
+  final String memberId;
+  final List<Idol> idols;
+  final Group group;
 
   const IdolsPage({
     Key? key,
     required this.memberId,
     required this.idols,
-    required this.group, // Добавляем параметр группы
+    required this.group,
   }) : super(key: key);
 
   @override
@@ -36,7 +36,7 @@ class IdolsPage extends StatelessWidget {
           children: [
             if (member.thumbUrl.isNotEmpty)
               Image.network(member.thumbUrl, height: 150, fit: BoxFit.cover),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               'Имя: ${member.name}',
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),

@@ -5,8 +5,8 @@ import 'package:kpop_application/features/data/models/idol_member.dart';
 import 'package:kpop_application/features/presentaion/pages/idols_page.dart';
 
 class MembersPage extends StatelessWidget {
-  final Group group; // Группа, к которой принадлежат участники
-  final List<Idol> idols; // Список идолов
+  final Group group;
+  final List<Idol> idols;
 
   const MembersPage({Key? key, required this.group, required this.idols})
     : super(key: key);
@@ -23,13 +23,12 @@ class MembersPage extends StatelessWidget {
             color: Theme.of(context).colorScheme.tertiary,
           ),
         ),
-      ), // Название группы в заголовке
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Отображение названия агентства
             Text(
               'Агентство: ${group.agencyName}',
               style: TextStyle(
@@ -38,8 +37,8 @@ class MembersPage extends StatelessWidget {
                 color: Theme.of(context).colorScheme.primary,
               ),
             ),
-            const SizedBox(height: 8), // Отступ между текстами
-            // Отображение даты дебюта
+            const SizedBox(height: 8),
+
             Text(
               'Дата дебюта: ${group.debutDate != null ? group.debutDate!.toLocal().toString().split(' ')[0] : "Не указана"}',
               style: TextStyle(
@@ -47,22 +46,19 @@ class MembersPage extends StatelessWidget {
                 color: Theme.of(context).colorScheme.primary,
               ),
             ),
-            const SizedBox(height: 16), // Отступ перед списком участников
+            const SizedBox(height: 16),
             Expanded(
               child: ListView.builder(
                 itemCount: group.members.length,
                 itemBuilder: (context, index) {
                   var member = group.members[index];
-                  // Получаем имя айдола по его idolId
+
                   String idolName = getIdolName(member.idolId, idols);
 
                   return ListTile(
-                    title: Text(idolName), // Отображаем имя айдола
-                    subtitle: Text(
-                      member.roles ?? "Роль не указана",
-                    ), // Отображение роли участника
+                    title: Text(idolName),
+                    subtitle: Text(member.roles ?? "Роль не указана"),
                     onTap: () {
-                      // Переход к странице с деталями участника
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -86,11 +82,10 @@ class MembersPage extends StatelessWidget {
   }
 
   String getIdolName(String idolId, List<Idol> idols) {
-    // Находим и возвращаем имя айдола по его id
     Idol idol = idols.firstWhere(
       (idol) => idol.id == idolId,
       orElse: () => throw Exception('Idol with id $idolId not found'),
     );
-    return idol.name; // Возвращаем имя найденного айдола
+    return idol.name;
   }
 }
