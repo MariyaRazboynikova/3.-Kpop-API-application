@@ -107,9 +107,8 @@ class _GroupsPageState extends State<GroupsPage> {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: TextField(
             onChanged: (value) {
-              // обновление текста поиска
               setState(() {
-                searchQuery = value.toLowerCase();
+                searchQuery = value.toLowerCase(); // Обновляем текст поиска
               });
             },
             decoration: const InputDecoration(
@@ -128,11 +127,10 @@ class _GroupsPageState extends State<GroupsPage> {
               }
               return ListTile(
                 title: Text(group.name),
-                subtitle: Text(group.agencyName ?? "Агентство не указано"),
-                leading:
-                    group.thumbUrl != null
-                        ? Image.network(group.thumbUrl!)
-                        : null,
+                subtitle: Text(group.agencyName),
+                leading: group.thumbUrl != null
+                    ? Image.network(group.thumbUrl!)
+                    : null,
                 onTap: () {
                   Navigator.pushNamed(
                     context,
