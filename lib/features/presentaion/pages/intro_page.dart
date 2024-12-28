@@ -26,7 +26,7 @@ class IntroPage extends StatelessWidget {
           ),
           Icon(
             Icons.music_note_outlined,
-            color: Theme.of(context).colorScheme.secondary,
+            color: Theme.of(context).colorScheme.tertiary,
             size: 100,
           ),
           // Image.asset('lib/core/assets/love.png'),

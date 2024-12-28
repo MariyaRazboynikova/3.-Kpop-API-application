@@ -48,7 +48,7 @@ class MainApp extends StatelessWidget {
           return MembersPage(
             group: args['group'],
             idols: args['idols'],
-            groups: args['groups'], // Передаем группы
+            // Передаем группы
           );
         },
         '/idols_page': (context) {
@@ -58,7 +58,7 @@ class MainApp extends StatelessWidget {
           return IdolsPage(
             memberId: args['memberId'],
             idols: args['idols'],
-            groups: args['groups'],
+            group: args['group'],
           );
         },
       },
