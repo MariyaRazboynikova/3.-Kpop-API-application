@@ -40,7 +40,7 @@ class MainApp extends StatelessWidget {
       home: const IntroPage(),
       routes: {
         '/intro_page': (context) => const IntroPage(),
-        '/groups_page': (context) => const GroupsPage(),
+        '/groups_page': (context) => GroupsPage(),
         '/members_page': (context) {
           final args =
               ModalRoute.of(context)!.settings.arguments

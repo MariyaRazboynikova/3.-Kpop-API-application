@@ -4,14 +4,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kpop_application/core/themes/themes.dart';
 import 'package:kpop_application/core/themes/themes_provider.dart';
 import 'package:kpop_application/features/data/models/group_model.dart';
-import 'package:kpop_application/features/data/models/idol_member.dart';
 import 'package:kpop_application/features/presentaion/bloc/groups_bloc.dart';
+import 'package:kpop_application/features/presentaion/pages/members_page.dart';
 
 class GroupsPage extends StatefulWidget {
-  const GroupsPage({super.key});
-
   @override
-  State<GroupsPage> createState() => _GroupsPageState();
+  _GroupsPageState createState() => _GroupsPageState();
 }
 
 class _GroupsPageState extends State<GroupsPage> {
@@ -20,6 +18,7 @@ class _GroupsPageState extends State<GroupsPage> {
   @override
   void initState() {
     super.initState();
+    // Инициируем загрузку групп при открытии страницы
     Future.microtask(() {
       context.read<GroupsBloc>().add(FetchGroup());
     });
@@ -75,17 +74,62 @@ class _GroupsPageState extends State<GroupsPage> {
           ),
         ),
       ),
-
-      //body
       body: BlocBuilder<GroupsBloc, GroupsState>(
         builder: (context, state) {
           if (state is GroupsLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is GroupsLoaded) {
-            return getGroups(
-              state.groups.groups,
-              searchQuery,
-              state.groups.idols,
+            // Сортировка групп по имени
+            List<Group> sortedGroups = List.from(state.groups.groups);
+            sortedGroups.sort((a, b) => a.name.compareTo(b.name));
+            return Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: TextField(
+                    onChanged: (value) {
+                      setState(() {
+                        searchQuery = value.toLowerCase();
+                      });
+                    },
+                    decoration: const InputDecoration(
+                      hintText: 'Поиск по названию группы...',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: sortedGroups.length,
+                    itemBuilder: (context, index) {
+                      var group = sortedGroups[index];
+                      if (!group.name.toLowerCase().contains(searchQuery)) {
+                        return Container();
+                      }
+                      return ListTile(
+                        title: Text(group.name),
+                        subtitle: Text(group.agencyName),
+                        leading:
+                            group.thumbUrl != null
+                                ? Image.network(group.thumbUrl!)
+                                : null,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (context) => MembersPage(
+                                    group: group,
+                                    idols: state.groups.idols,
+                                  ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ],
             );
           } else if (state is GroupsError) {
             return const Center(child: Text('Ошибка загрузки групп'));
@@ -93,58 +137,6 @@ class _GroupsPageState extends State<GroupsPage> {
           return Container();
         },
       ),
-    );
-  }
-
-  Widget getGroups(List<Group> groups, String searchQuery, List<Idol> idols) {
-    // Сортировка групп по имени
-    List<Group> sortedGroups = List.from(groups);
-    sortedGroups.sort((a, b) => a.name.compareTo(b.name));
-
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: TextField(
-            onChanged: (value) {
-              // обновление текста поиска
-              setState(() {
-                searchQuery = value.toLowerCase();
-              });
-            },
-            decoration: const InputDecoration(
-              hintText: 'Поиск по названию группы...',
-              border: OutlineInputBorder(),
-            ),
-          ),
-        ),
-        Expanded(
-          child: ListView.builder(
-            itemCount: sortedGroups.length,
-            itemBuilder: (context, index) {
-              var group = sortedGroups[index];
-              if (!group.name.toLowerCase().contains(searchQuery)) {
-                return Container();
-              }
-              return ListTile(
-                title: Text(group.name),
-                subtitle: Text(group.agencyName ?? "Агентство не указано"),
-                leading:
-                    group.thumbUrl != null
-                        ? Image.network(group.thumbUrl!)
-                        : null,
-                onTap: () {
-                  Navigator.pushNamed(
-                    context,
-                    '/members_page',
-                    arguments: {'group': group, 'idols': idols},
-                  );
-                },
-              );
-            },
-          ),
-        ),
-      ],
     );
   }
 }
