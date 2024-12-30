@@ -18,7 +18,7 @@ This application is a Flutter-based K-Pop fan app designed to provide users with
 
 - **Detailed Idol Profiles**: When a user selects a group, they can view detailed profiles of the idols within that group. Each profile displays essential information such as name, real name, birth date, height, weight, and debut date.
 
-### User Interface
+## User Interface
 
 The user interface is designed with simplicity and usability in mind:
 
