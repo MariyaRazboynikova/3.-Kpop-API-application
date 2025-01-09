@@ -1,0 +1,2 @@
+C:/flutter/1. Project/3.-Kpop-API-application/android/app/.cxx/RelWithDebInfo/6i5e3i2u/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/flutter/1. Project/3.-Kpop-API-application/android/app/.cxx/RelWithDebInfo/6i5e3i2u/armeabi-v7a/CMakeFiles/rebuild_cache.dir

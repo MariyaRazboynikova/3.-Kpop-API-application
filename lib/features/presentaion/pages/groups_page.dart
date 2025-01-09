@@ -8,6 +8,8 @@ import 'package:kpop_application/features/presentaion/bloc/groups_bloc.dart';
 import 'package:kpop_application/features/presentaion/pages/members_page.dart';
 
 class GroupsPage extends StatefulWidget {
+  const GroupsPage({super.key});
+
   @override
   _GroupsPageState createState() => _GroupsPageState();
 }
