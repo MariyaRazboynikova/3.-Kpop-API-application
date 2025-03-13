@@ -1,4 +1,4 @@
-# K-Pop fan app
+# K-Pop fan Application
 
 ## Overview
 
