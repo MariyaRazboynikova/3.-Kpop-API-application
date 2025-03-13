@@ -9,7 +9,7 @@ class MembersPage extends StatelessWidget {
   final List<Idol> idols;
 
   const MembersPage({Key? key, required this.group, required this.idols})
-    : super(key: key);
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class MembersPage extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(1.0),
+        padding: const EdgeInsets.all(2.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -38,7 +38,6 @@ class MembersPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-
             Text(
               'Дата дебюта: ${group.debutDate != null ? group.debutDate!.toLocal().toString().split(' ')[0] : "Не указана"}',
               style: TextStyle(
@@ -62,12 +61,11 @@ class MembersPage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder:
-                              (context) => IdolsPage(
-                                memberId: member.idolId,
-                                idols: idols,
-                                group: group,
-                              ),
+                          builder: (context) => IdolsPage(
+                            memberId: member.idolId,
+                            idols: idols,
+                            group: group,
+                          ),
                         ),
                       );
                     },
